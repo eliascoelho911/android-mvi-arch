@@ -1,0 +1,14 @@
+apply plugin: 'com.android.application'
+apply plugin: 'org.jetbrains.kotlin.android'
+
+apply from: "$rootDir/plugins/android.gradle"
+
+android {
+    namespace "com.android.core.mvi"
+}
+
+dependencies {
+    implementation Libs.coreKtx
+    implementation Libs.lifecycleRuntimeKtx
+    implementation Libs.viewModelKtx
+}

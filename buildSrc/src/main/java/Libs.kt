@@ -9,4 +9,5 @@ object Libs {
     // Android
     const val lifecycleRuntimeKtx = "androidx.lifecycle:lifecycle-runtime-ktx:${Versions.lifecycleRuntimeKtx}"
     const val coreKtx = "androidx.core:core-ktx:${Versions.androidCoreKtx}"
+    const val viewModelKtx = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycleRuntimeKtx}"
 }
