@@ -2,42 +2,47 @@ package com.eliascoelho911.androidmvi.core.arch
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.emitAll
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 
-abstract class StateViewModel<Event, Action, State>(
-    private val initialState: State,
+abstract class StateViewModel<EVENT, SIDE_EFFECT, STATE : State>(
+    initialState: STATE,
 ) : ViewModel() {
-    private val event = MutableSharedFlow<Event>()
+    private val _state = MutableStateFlow(initialState)
+    val state: StateFlow<STATE> get() = _state
 
-    val state: StateFlow<State> = event.toState()
+    private val _sideEffect = MutableSharedFlow<SIDE_EFFECT>()
+    val sideEffect: SharedFlow<SIDE_EFFECT> get() = _sideEffect
 
-    private val _action = MutableSharedFlow<Action>()
-    val action: SharedFlow<Action> get() = _action
-
-    suspend fun dispatch(event: Event) {
-        this.event.emit(event)
+    fun dispatch(event: EVENT) {
+        viewModelScope.launch {
+            handleEvent(event)
+        }
     }
 
-    suspend fun dispatch(eventFlow: Flow<Event>) {
-        event.emitAll(eventFlow)
+    protected abstract suspend fun handleEvent(event: EVENT)
+
+    protected suspend fun on(
+        guard: (currentState: SyncState) -> Boolean = { true },
+        block: suspend () -> Unit
+    ) {
+        if (guard(_state.value.syncState)) {
+            block()
+        } else {
+            if (BuildConfig.DEBUG) {
+                throw IllegalStateException("Guard is false")
+            }
+        }
     }
 
-    protected abstract fun reducer(state: State, event: Event): State
-
-    protected suspend fun sendAction(action: Action) {
-        _action.emit(action)
+    protected suspend fun reduce(state: (currentState: STATE) -> STATE) {
+        _state.emit(state(_state.value))
     }
 
-    private fun Flow<Event>.toState(): StateFlow<State> {
-        return map { event ->
-            reducer(state.value, event)
-        }.stateIn(viewModelScope, SharingStarted.Lazily, initialState)
+    protected suspend fun sendSideEffect(action: SIDE_EFFECT) {
+        _sideEffect.emit(action)
     }
 }

@@ -18,4 +18,7 @@ object Versions {
 
     // Gradle
     const val gradle = "7.3.0"
+
+    // Koin
+    const val koin = "3.4.0"
 }

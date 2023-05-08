@@ -36,6 +36,7 @@ dependencies {
     implementation Libs.composeUiToolingPreview
     implementation Libs.composeMaterial3
     debugImplementation Libs.composeUiTooling
+    implementation Libs.koinCompose
 
     implementation project(LocalLibs.arch)
 }

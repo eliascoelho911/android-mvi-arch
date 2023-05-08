@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">Notate</string>
+    <string name="app_name">Android MVI Sample</string>
+    <string name="counter_screen_title">Counter</string>
 </resources>

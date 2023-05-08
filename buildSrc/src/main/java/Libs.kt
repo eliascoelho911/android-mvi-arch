@@ -10,4 +10,7 @@ object Libs {
     const val lifecycleRuntimeKtx = "androidx.lifecycle:lifecycle-runtime-ktx:${Versions.lifecycleRuntimeKtx}"
     const val coreKtx = "androidx.core:core-ktx:${Versions.androidCoreKtx}"
     const val viewModelKtx = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycleRuntimeKtx}"
+
+    // Koin
+    const val koinCompose = "io.insert-koin:koin-androidx-compose:${Versions.koin}"
 }
