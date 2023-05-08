@@ -4,7 +4,7 @@ import com.eliascoelho911.androidmvi.core.arch.Reducer
 import com.eliascoelho911.androidmvi.sample.domain.repository.CounterRepository
 
 class CounterReducer(
-    initialState: CounterState,
+    initialState: CounterState = CounterState(),
     private val repository: CounterRepository
 ) : Reducer<CounterEvent, CounterSideEffect, CounterState>(initialState) {
     override suspend fun dispatch(event: CounterEvent) {
