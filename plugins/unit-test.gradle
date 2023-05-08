@@ -1,3 +1,5 @@
 dependencies {
     testImplementation(TestLibs.junit)
+    testImplementation(TestLibs.mockk)
+    testImplementation(TestLibs.coroutinesTest)
 }

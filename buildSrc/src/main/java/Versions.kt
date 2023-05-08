@@ -1,6 +1,7 @@
 object Versions {
     // Kotlin
     const val kotlin = "1.8.10"
+    const val coroutines = "1.6.4"
 
     // Compose
     const val compose = "1.3.3"
@@ -21,4 +22,9 @@ object Versions {
 
     // Koin
     const val koin = "3.4.0"
+
+    // Mockk
+    const val mockk = "1.13.5"
+
+
 }
