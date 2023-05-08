@@ -4,10 +4,10 @@ apply plugin: 'org.jetbrains.kotlin.android'
 apply from: "$rootDir/plugins/android.gradle"
 
 android {
-    namespace "com.notate"
+    namespace "com.eliascoelho911.androidmvi.sample"
 
     defaultConfig {
-        applicationId "com.notate"
+        applicationId "com.eliascoelho911.androidmvi.sample"
         versionCode 1
         versionName "1.0"
     }
@@ -36,4 +36,6 @@ dependencies {
     implementation Libs.composeUiToolingPreview
     implementation Libs.composeMaterial3
     debugImplementation Libs.composeUiTooling
+
+    implementation project(LocalLibs.arch)
 }

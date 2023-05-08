@@ -1,4 +1,4 @@
-package com.eliascoelho911.arch
+package com.eliascoelho911.androidmvi.core.arch
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -18,6 +18,9 @@ abstract class StateViewModel<Event, Action, State>(
 
     val state: StateFlow<State> = event.toState()
 
+    private val _action = MutableSharedFlow<Action>()
+    val action: SharedFlow<Action> get() = _action
+
     suspend fun dispatch(event: Event) {
         this.event.emit(event)
     }
@@ -27,10 +30,6 @@ abstract class StateViewModel<Event, Action, State>(
     }
 
     protected abstract fun reducer(state: State, event: Event): State
-
-    private val _action = MutableSharedFlow<Action>()
-
-    val action: SharedFlow<Action> get() = _action
 
     protected suspend fun sendAction(action: Action) {
         _action.emit(action)

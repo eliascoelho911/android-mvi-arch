@@ -4,7 +4,7 @@ apply plugin: 'org.jetbrains.kotlin.android'
 apply from: "$rootDir/plugins/android.gradle"
 
 android {
-    namespace "com.android.core.mvi"
+    namespace "com.eliascoelho911.androidmvi.core.arch"
 }
 
 dependencies {

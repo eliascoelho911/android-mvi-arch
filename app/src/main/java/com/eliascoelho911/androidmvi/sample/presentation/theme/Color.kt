@@ -1,4 +1,4 @@
-package com.notate.ui.theme
+package com.eliascoelho911.androidmvi.sample.presentation.theme
 
 import androidx.compose.ui.graphics.Color
 
