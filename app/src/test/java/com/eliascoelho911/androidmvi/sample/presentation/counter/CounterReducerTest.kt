@@ -14,14 +14,13 @@ class CounterReducerTest {
     private val repository: CounterRepository = mockk(relaxed = true)
 
     @Test
-    fun `Started Should change state to Loaded When repository returns success`() = runTest {
+    fun `Started Should change state to Content When repository returns success`() = runTest {
         // Given
         val initialState = CounterState()
         val reducer = CounterReducer(
-            initialState = initialState,
             repository = repository
         )
-        val expectedState = initialState.loaded(Counter(0))
+        val expectedState = initialState.content(Counter(0))
         coEvery { repository.get() } returns Result.success(Counter(0))
 
         // When
@@ -36,7 +35,6 @@ class CounterReducerTest {
         // Given
         val initialState = CounterState()
         val reducer = CounterReducer(
-            initialState = initialState,
             repository = repository
         )
         val expectedState = initialState.error("Error")
@@ -52,12 +50,11 @@ class CounterReducerTest {
     @Test
     fun `Increment Should increment counter When repository returns success`() = runTest {
         // Given
-        val initialState = CounterState().loaded(Counter(0))
+        val initialState = CounterState().content(Counter(0))
         val reducer = CounterReducer(
-            initialState = initialState,
             repository = repository
         )
-        val expectedState = initialState.loaded(Counter(1))
+        val expectedState = initialState.content(Counter(1))
         coEvery { repository.increment() } returns Result.success(Counter(1))
 
         // When
@@ -70,9 +67,8 @@ class CounterReducerTest {
     @Test
     fun `Increment Should change state to Error When repository returns failure`() = runTest {
         // Given
-        val initialState = CounterState().loaded(Counter(0))
+        val initialState = CounterState().content(Counter(0))
         val reducer = CounterReducer(
-            initialState = initialState,
             repository = repository
         )
         val expectedState = initialState.error("Error")
@@ -88,12 +84,11 @@ class CounterReducerTest {
     @Test
     fun `Decrement Should decrement counter When repository returns success`() = runTest {
         // Given
-        val initialState = CounterState().loaded(Counter(0))
+        val initialState = CounterState().content(Counter(0))
         val reducer = CounterReducer(
-            initialState = initialState,
             repository = repository
         )
-        val expectedState = initialState.loaded(Counter(-1))
+        val expectedState = initialState.content(Counter(-1))
         coEvery { repository.decrement() } returns Result.success(Counter(-1))
 
         // When
@@ -106,9 +101,8 @@ class CounterReducerTest {
     @Test
     fun `Decrement Should change state to Error When repository returns failure`() = runTest {
         // Given
-        val initialState = CounterState().loaded(Counter(0))
+        val initialState = CounterState().content(Counter(0))
         val reducer = CounterReducer(
-            initialState = initialState,
             repository = repository
         )
         val expectedState = initialState.error("Error")

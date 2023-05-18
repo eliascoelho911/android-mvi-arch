@@ -1,7 +1,7 @@
 package com.eliascoelho911.androidmvi.core.arch
 
-typealias SyncState = Any
+typealias ViewState = Any
 
 interface State {
-    val syncState: SyncState
+    val viewState: ViewState
 }

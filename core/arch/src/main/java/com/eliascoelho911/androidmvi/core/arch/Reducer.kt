@@ -15,10 +15,10 @@ abstract class Reducer<EVENT, SIDE_EFFECT, STATE : State>(initialState: STATE) {
     abstract suspend fun dispatch(event: EVENT)
 
     protected suspend fun on(
-        guard: (currentState: SyncState) -> Boolean = { true },
+        guard: (currentState: ViewState) -> Boolean = { true },
         block: suspend () -> Unit
     ) {
-        if (guard(_state.value.syncState)) {
+        if (guard(_state.value.viewState)) {
             block()
         } else {
             if (BuildConfig.DEBUG) {

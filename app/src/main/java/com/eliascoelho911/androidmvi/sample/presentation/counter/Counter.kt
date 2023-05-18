@@ -69,16 +69,16 @@ fun CounterContent(
                 modifier = Modifier.align(Alignment.Center),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                when (state.syncState) {
+                when (state.viewState) {
                     is CounterSyncState.Loading -> {
                         CircularProgressIndicator(modifier = Modifier.padding(bottom = 16.dp))
                     }
 
                     is CounterSyncState.Error -> {
-                        Text(text = state.syncState.message)
+                        Text(text = state.viewState.message)
                     }
 
-                    CounterSyncState.Loaded -> {
+                    CounterSyncState.Content -> {
                         Text(text = state.counter.value.toString())
                         Spacer(modifier = Modifier.size(16.dp))
 

@@ -5,19 +5,19 @@ import com.eliascoelho911.androidmvi.sample.domain.entity.Counter
 
 data class CounterState(
     val counter: Counter = Counter(0),
-    override val syncState: CounterSyncState = CounterSyncState.Loading
+    override val viewState: CounterSyncState = CounterSyncState.Loading
 ) : State {
-    fun loading() = copy(syncState = CounterSyncState.Loading)
+    fun loading() = copy(viewState = CounterSyncState.Loading)
 
-    fun loaded(counter: Counter) = copy(counter = counter, syncState = CounterSyncState.Loaded)
+    fun content(counter: Counter) = copy(counter = counter, viewState = CounterSyncState.Content)
 
-    fun error(message: String) = copy(syncState = CounterSyncState.Error(message))
+    fun error(message: String) = copy(viewState = CounterSyncState.Error(message))
 }
 
 sealed interface CounterSyncState {
     object Loading : CounterSyncState
 
-    object Loaded : CounterSyncState
+    object Content : CounterSyncState
 
     data class Error(val message: String) : CounterSyncState
 }
